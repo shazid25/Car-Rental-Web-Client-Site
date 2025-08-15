@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { FaCar } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext/AuthProvider';
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext) || {};
+  const location = useLocation();
 
   const handleLogout = () => {
     signOutUser()
@@ -12,29 +13,53 @@ const Navbar = () => {
       .catch((err) => console.error(err));
   };
 
-  // Public menu links
+  const isActive = (path) => location.pathname === path;
+
   const publicLinks = (
     <>
-      <li><Link to="/" className="hover:text-orange-300 font-medium">Home</Link></li>
-      <li><Link to="/available-cars" className="hover:text-orange-300 font-medium">Available Cars</Link></li>
+      <Link
+        to="/"
+        className={`hover:text-orange-300 font-medium ${isActive('/') ? 'text-orange-500 font-bold' : ''}`}
+      >
+        Home
+      </Link>
+      <Link
+        to="/available-cars"
+        className={`hover:text-orange-300 font-medium ${isActive('/available-cars') ? 'text-orange-500 font-bold' : ''}`}
+      >
+        Available Cars
+      </Link>
     </>
   );
 
-  // Authenticated user menu links
   const privateLinks = (
     <>
       {publicLinks}
-      <li><Link to="/add-car" className="hover:text-orange-300 font-medium">Add Car</Link></li>
-      <li><Link to="/my-cars" className="hover:text-orange-300 font-medium">My Cars</Link></li>
-      <li><Link to="/my-bookings" className="hover:text-orange-300 font-medium">My Bookings</Link></li>
-      <li>
-        <button
-          onClick={handleLogout}
-          className="hover:text-red-400 font-medium"
-        >
-          Logout
-        </button>
-      </li>
+      <Link
+        to="/addCar"
+        className={`hover:text-orange-300 font-medium ${isActive('/addCar') ? 'text-orange-500 font-bold' : ''}`}
+      >
+        Add Car
+      </Link>
+      <Link
+        to="/my-cars"
+        className={`hover:text-orange-300 font-medium ${isActive('/my-cars') ? 'text-orange-500 font-bold' : ''}`}
+      >
+        My Cars
+      </Link>
+      <Link
+        to="/my-bookings"
+        className={`hover:text-orange-300 font-medium ${isActive('/my-bookings') ? 'text-orange-500 font-bold' : ''}`}
+      >
+        My Bookings
+      </Link>
+      <Link
+        to="/"
+        onClick={handleLogout}
+        className="hover:text-red-400 font-medium"
+      >
+        Logout
+      </Link>
     </>
   );
 
@@ -44,17 +69,21 @@ const Navbar = () => {
       <div className="navbar-start">
         {/* Mobile Dropdown */}
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg"
+          <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h12m-12 6h16" />
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </div>
-          <ul tabIndex={0}
-            className="menu menu-sm dropdown-content bg-gray-800 rounded-box mt-3 w-52 p-2 shadow text-white z-[1]">
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-gray-800 rounded-box mt-3 w-52 p-2 shadow text-white z-[1] flex flex-col gap-2"
+          >
             {user ? privateLinks : publicLinks}
           </ul>
         </div>
@@ -66,11 +95,11 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Center - Desktop Menu */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 gap-6">
+      {/* Center - Desktop / Tablet Menu */}
+      <div className="navbar-center hidden md:flex">
+        <div className="flex gap-6">
           {user ? privateLinks : publicLinks}
-        </ul>
+        </div>
       </div>
 
       {/* Right - Login / Profile */}
@@ -103,3 +132,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
