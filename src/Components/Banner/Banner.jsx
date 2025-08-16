@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import carLogo from './../../assets/carlogo.png';
 const specialOffers = [
   {
     id: 1,
@@ -64,10 +64,10 @@ const Banner = () => {
             className="absolute top-8 right-8 w-24 h-24 opacity-80 animate-float"
           >
             <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png" 
-              alt="BMW Logo" 
-              className="w-full h-full object-contain"
+            className="w-full h-full object-contain"
+             src={carLogo} alt="Car Logo"  
             />
+
           </div>
         </div>
         
@@ -83,7 +83,7 @@ const Banner = () => {
             </p>
             <div className="flex flex-wrap gap-4 animate-fadeIn">
               <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/30">
-                Book Your BMW M
+                Book Your Dream
               </button>
               <button className="border-2 border-yellow-500 text-yellow-400 font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 hover:bg-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/20">
                 Explore Our Fleet
