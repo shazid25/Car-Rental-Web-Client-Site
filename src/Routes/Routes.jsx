@@ -31,10 +31,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "/addCar",
-    Component:<AddCars></AddCars>
+    element:<AddCars />
   },
   {
     path: "/my-cars",
-    Component: <MyCars></MyCars>
+    element: <MyCars/>
   }
 ]);
