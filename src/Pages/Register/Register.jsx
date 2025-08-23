@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import 'animate.css';
 import { AuthContext } from '../../contexts/AuthContext/AuthProvider';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
   const { createUser } = useContext(AuthContext) || {}; // null-safe
@@ -278,6 +279,9 @@ const Register = () => {
               </Link>
             </p>
           </div>
+
+          <SocialLogin></SocialLogin>
+   
         </div>
       </div>
     </div>
