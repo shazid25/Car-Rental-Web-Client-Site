@@ -1,39 +1,141 @@
+// import React, { useState, useEffect } from "react";
 
-import React from "react";
+// const LatestCars = () => {
+//   const [cars, setCars] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     fetch("http://localhost:3000/cars")
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setCars(data);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         console.error("Error fetching cars:", err);
+//         setLoading(false);
+//       });
+//   }, []);
+
+//   if (loading) {
+//     return <p className="text-center text-lg text-white mt-10">Loading cars...</p>;
+//   }
+
+//   return (
+//     <div className="p-6 rounded-2xl bg-gray-900 min-h-screen text-white">
+//       <h2 className="text-3xl text-center font-bold mb-6 animate-pulse">
+//         Latest Cars ({cars.length})
+//       </h2>
+
+//       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+//         {cars.map((car) => (
+//           <div
+//             key={car._id}
+//             className="bg-gray-800 rounded-xl overflow-hidden shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl"
+//           >
+//             <img
+//               src={`${car.imageUrl}?auto=format&fit=crop&w=400&h=250&q=80`}
+//               alt={car.carModel}
+//               className="w-full h-48 object-cover"
+//             />
+//             <div className="p-4 space-y-2">
+//               <h3 className="text-xl font-semibold">{car.carModel}</h3>
+//               <p className="text-gray-300">${car.dailyRentalPrice}/day</p>
+//               <p className="text-gray-400">Reg: {car.registrationNumber}</p>
+//               <p
+//                 className={`font-medium ${
+//                   car.availability ? "text-green-400" : "text-red-500"
+//                 }`}
+//               >
+//                 {car.availability ? "Available" : "Not Available"}
+//               </p>
+//               <p className="text-gray-400 text-sm">Location: {car.location}</p>
+//             </div>
+//             <div className="p-4 border-t border-gray-700">
+//               <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300">
+//                 View Details
+//               </button>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default LatestCars;
+
+
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const LatestCars = () => {
+  const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/cars")
+      .then((res) => res.json())
+      .then((data) => {
+        setCars(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching cars:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <p className="text-center text-lg text-white mt-10">Loading cars...</p>;
+  }
+
   return (
-    <div className="p-6">
-      <h2 className="text-3xl text-center font-bold mb-6">Latest Cars</h2>
+    <div className="p-6 rounded-2xl bg-gray-900 min-h-screen text-white">
+      <h2 className="text-3xl text-center font-bold mb-6 animate-pulse">
+        Latest Cars ({cars.length})
+      </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        {/* Card Example */}
-        <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300">
-          <img
-            src="https://via.placeholder.com/400x250"
-            alt="Car"
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4 space-y-2">
-            <h3 className="text-lg font-semibold">Toyota Corolla 2023</h3>
-            <p className="text-gray-700">
-              <span className="font-semibold">Daily Price:</span> $50/day
-            </p>
-            <p className="text-gray-700">
-              <span className="font-semibold">Bookings:</span> 15
-            </p>
-            <p className="text-gray-500 text-sm">
-              <span className="font-semibold">Date Posted:</span> Aug 10, 2025
-            </p>
-          </div>
-          <div className="p-4 border-t">
-            <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300">
-              View Details
-            </button>
-          </div>
-        </div>
-
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {cars.map((car, index) => (
+          <motion.div
+            key={car._id}
+            className="bg-gray-800 rounded-xl overflow-hidden shadow-lg"
+            initial={{ opacity: 0, y: 50, rotate: -2 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.8,
+              delay: index * 0.1,
+              type: "spring",
+              stiffness: 100,
+            }}
+          >
+            <img
+              src={`${car.imageUrl}?auto=format&fit=crop&w=400&h=250&q=80`}
+              alt={car.carModel}
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-4 space-y-2">
+              <h3 className="text-xl font-semibold">{car.carModel}</h3>
+              <p className="text-gray-300">${car.dailyRentalPrice}/day</p>
+              <p className="text-gray-400">Reg: {car.registrationNumber}</p>
+              <p
+                className={`font-medium ${
+                  car.availability ? "text-green-400" : "text-red-500"
+                }`}
+              >
+                {car.availability ? "Available" : "Not Available"}
+              </p>
+              <p className="text-gray-400 text-sm">Location: {car.location}</p>
+            </div>
+            <div className="p-4 border-t border-gray-700">
+              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300">
+                View Details
+              </button>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
