@@ -233,7 +233,7 @@ const Banner = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 px-4 container mx-auto scroll-animate">
+      {/* <section className="py-16 px-4 container mx-auto scroll-animate">
         <h2 className="text-3xl font-bold text-center mb-12 text-yellow-400">
           What Our Customers Say
         </h2>
@@ -296,7 +296,7 @@ const Banner = () => {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Call to Action */}
       <section className="py-16 px-4 container mx-auto text-center scroll-animate">
