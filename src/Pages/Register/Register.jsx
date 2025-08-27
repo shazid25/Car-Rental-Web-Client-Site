@@ -10,6 +10,9 @@ const Register = () => {
   const { createUser } = useContext(AuthContext) || {}; // null-safe
   const navigate = useNavigate();
 
+  const locathion = useLocation();
+  console.log('location is',locathion);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',

@@ -64,17 +64,11 @@ const LatestCars = () => {
             </div>
             <div className="p-4 border-t border-gray-700">
               {/* Link to Car Details */}
-              {/* <Link to={`/cars/${car._id}`}>
+              <Link to={`/cars/${car._id}`}>
                 <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300">
                   View Details
                 </button>
-              </Link> */}
-
-              <Link to={`/cars/${car._id.toString()}`}>
-  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300">
-    View Details
-  </button>
-</Link>
+              </Link>
             </div>
           </motion.div>
         ))}

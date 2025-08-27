@@ -18,6 +18,8 @@ const AddCars = () => {
     bookingCount: 0,
     imageUrl: '',
     location: '',
+
+    
   });
   
   const formRef = useRef(null);
@@ -60,6 +62,9 @@ const AddCars = () => {
     // In a real app, you would use routing here
     // e.g., history.push('/') or navigate('/')
   };
+
+
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-8 px-4 sm:px-6 lg:px-8">
