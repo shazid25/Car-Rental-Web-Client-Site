@@ -42,7 +42,7 @@ const Navbar = () => {
         Home
       </Link>
       <Link
-        to="/available-cars"
+        to="/abailable/cars"
         className={`hover:text-orange-300 font-medium ${isActive('/available-cars') ? 'text-orange-500 font-bold' : ''}`}
       >
         Available Cars
@@ -54,19 +54,19 @@ const Navbar = () => {
     <>
       {publicLinks}
       <Link
-        to="/addCar"
+        to="/add/car"
         className={`hover:text-orange-300 font-medium ${isActive('/addCar') ? 'text-orange-500 font-bold' : ''}`}
       >
         Add Car
       </Link>
       <Link
-        to="/my-cars"
+        to="/my/car"
         className={`hover:text-orange-300 font-medium ${isActive('/my-cars') ? 'text-orange-500 font-bold' : ''}`}
       >
         My Cars
       </Link>
       <Link
-        to="/my-bookings"
+        to="/my/bookings"
         className={`hover:text-orange-300 font-medium ${isActive('/my-bookings') ? 'text-orange-500 font-bold' : ''}`}
       >
         My Bookings

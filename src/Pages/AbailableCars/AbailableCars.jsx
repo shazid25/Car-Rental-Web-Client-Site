@@ -38,7 +38,7 @@ const AvailableCars = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 py-8 px-4">
+    <div className="min-h-screen rounded-2xl bg-gray-900 py-8 px-4">
       <h1 className="text-4xl font-bold text-cyan-400 mb-6 text-center">
         All Cars
       </h1>

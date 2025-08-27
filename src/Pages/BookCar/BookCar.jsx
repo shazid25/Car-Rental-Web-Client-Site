@@ -6,7 +6,7 @@ const BookCar = () => {
 
   if (!car) {
     return (
-      <div className="text-center text-red-500 text-xl mt-10">
+      <div className="text-center rounded-2xl text-red-500 text-xl mt-10">
         Car not found!
       </div>
     );

@@ -15,7 +15,7 @@ const MyCars = () => {
   }, [user]);
 
   return (
-    <div className="p-6 min-h-screen bg-gray-900 text-white">
+    <div className="p-6 rounded-2xl min-h-screen bg-gray-900 text-white">
       <h2 className="text-3xl text-center font-bold mb-6">My Cars</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
