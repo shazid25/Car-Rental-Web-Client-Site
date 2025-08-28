@@ -1,85 +1,39 @@
 // import React from "react";
-// import { useLoaderData, Link } from "react-router-dom";
+// import { useLoaderData, Link, useNavigate } from "react-router-dom";
 
 // const CarDetails = () => {
-//   const car = useLoaderData(); // this is actual JSON from backend
-//   console.log(car);
+//   const car = useLoaderData();
+//   const navigate = useNavigate();
 
-//   if (!car || car.error) {
-//     return (
-//       <div className="text-center text-red-500 mt-10 text-xl">
-//         {car?.error || "Car not found!"}
-//       </div>
-//     );
-//   }
+//   const handleDelete = async () => {
+//     const confirm = window.confirm("Are you sure you want to delete this car?");
+//     if (!confirm) return;
 
-//   const formattedDate = car.createdAt
-//     ? new Date(car.createdAt).toLocaleDateString()
-//     : "Unknown";
+//     const res = await fetch(`http://localhost:3000/cars/${car._id}`, {
+//       method: "DELETE",
+//     });
+
+//     if (res.ok) {
+//       alert("Car deleted successfully!");
+//       navigate("/my-cars");
+//     } else {
+//       alert("Failed to delete car.");
+//     }
+//   };
 
 //   return (
 //     <div className="p-6 text-white bg-gray-900 min-h-screen">
-//       <div className="max-w-3xl mx-auto bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-//         <img
-//           src={car.imageUrl || "https://via.placeholder.com/600x400"}
-//           alt={car.carModel}
-//           className="w-full h-64 object-cover"
-//         />
-//         <div className="p-6 space-y-3">
-//           <h2 className="text-3xl font-bold">{car.carModel}</h2>
-//           <p className="text-gray-300 text-lg">
-//             <strong>Price:</strong> ${parseFloat(car.dailyRentalPrice).toFixed(2)}/day
-//           </p>
-//           <p className="text-gray-400">
-//             <strong>Registration:</strong> {car.registrationNumber}
-//           </p>
-//           <p
-//             className={`font-medium ${
-//               car.availability ? "text-green-400" : "text-red-500"
-//             }`}
-//           >
-//             {car.availability ? "Available" : "Not Available"}
-//           </p>
-//           <p className="text-gray-400">
-//             <strong>Location:</strong> {car.location}
-//           </p>
-//           <p className="text-gray-400">
-//             <strong>Date Added:</strong> {formattedDate}
-//           </p>
-//           <p className="text-gray-300">
-//             <strong>Description:</strong> {car.description || "No description"}
-//           </p>
-
-//           {/* Features */}
-//           {car.features && Object.keys(car.features).length > 0 && (
-//             <div className="flex flex-wrap gap-2 mt-2">
-//               {Object.entries(car.features)
-//                 .filter(([_, v]) => v)
-//                 .map(([feature]) => (
-//                   <span
-//                     key={feature}
-//                     className="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm"
-//                   >
-//                     {feature.replace(/([A-Z])/g, " $1").trim()}
-//                   </span>
-//                 ))}
-//             </div>
-//           )}
-//         </div>
-
-//         <div className="p-6 border-t border-gray-700 flex justify-between gap-4">
-//           <Link
-//             to="/"
-//             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
-//           >
-//             Back to Cars
-//           </Link>
-
-//           <Link to={`/bookCar/${car._id || car.id}`}>
-//             <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">
-//               Book Now
-//             </button>
-//           </Link>
+//       <div className="max-w-xl mx-auto bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+//         <img src={car.imageUrl} alt={car.carModel} className="w-full h-64 object-cover" />
+//         <div className="p-6">
+//           <h2 className="text-2xl font-bold">{car.carModel}</h2>
+//           <p className="mt-2">{car.description}</p>
+//           <p className="mt-2 font-semibold">Price: ${car.dailyRentalPrice}/day</p>
+//           <p className="mt-2">Location: {car.location}</p>
+//           <div className="flex justify-between mt-4">
+//             <Link to={`/edit/${car._id}`} className="bg-blue-600 px-4 py-2 rounded-lg">Edit</Link>
+//             <button onClick={handleDelete} className="bg-red-600 px-4 py-2 rounded-lg">Delete</button>
+//           </div>
 //         </div>
 //       </div>
 //     </div>
@@ -90,89 +44,72 @@
 
 
 
-
-
 import React from "react";
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, Link, useNavigate } from "react-router-dom";
 
 const CarDetails = () => {
-  const car = useLoaderData(); // JSON from backend
+  const car = useLoaderData();
+  const navigate = useNavigate();
 
-  if (!car || car.error) {
+  if (!car) {
     return (
-      <div className="text-center text-red-500 mt-10 text-xl">
-        {car?.error || "Car not found!"}
+      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+        <h2 className="text-xl">Car details not found.</h2>
       </div>
     );
   }
 
-  const formattedDate = car.createdAt
-    ? new Date(car.createdAt).toLocaleDateString()
-    : "Unknown";
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this car?");
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`http://localhost:3000/cars/${car._id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        alert("Car deleted successfully!");
+        navigate("/my/car");
+      } else {
+        alert("Failed to delete car.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting car.");
+    }
+  };
 
   return (
-    <div className="p-6 text-white rounded-2xl bg-gray-900 min-h-screen">
-      <div className="max-w-3xl mx-auto bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+    <div className="p-6 text-white bg-gray-900 min-h-screen">
+      <div className="max-w-xl mx-auto bg-gray-800 rounded-xl shadow-lg overflow-hidden">
         <img
-          src={car.imageUrl || "https://via.placeholder.com/600x400"}
+          src={car.imageUrl || "https://via.placeholder.com/400x250"}
           alt={car.carModel}
           className="w-full h-64 object-cover"
         />
-        <div className="p-6 space-y-3">
-          <h2 className="text-3xl font-bold">{car.carModel}</h2>
-          <p className="text-gray-300 text-lg">
-            <strong>Price:</strong> ${parseFloat(car.dailyRentalPrice).toFixed(2)}/day
-          </p>
-          <p className="text-gray-400">
-            <strong>Registration:</strong> {car.registrationNumber}
-          </p>
-          <p
-            className={`font-medium ${
-              car.availability ? "text-green-400" : "text-red-500"
-            }`}
-          >
+        <div className="p-6 space-y-2">
+          <h2 className="text-2xl font-bold">{car.carModel}</h2>
+          <p>{car.description || "No description available."}</p>
+          <p className="font-semibold mt-2">Price: ${car.dailyRentalPrice}/day</p>
+          <p>Location: {car.location}</p>
+          <p className={car.availability ? "text-green-400 font-medium" : "text-red-500 font-medium"}>
             {car.availability ? "Available" : "Not Available"}
           </p>
-          <p className="text-gray-400">
-            <strong>Location:</strong> {car.location}
-          </p>
-          <p className="text-gray-400">
-            <strong>Date Added:</strong> {formattedDate}
-          </p>
-          <p className="text-gray-300">
-            <strong>Description:</strong> {car.description || "No description"}
-          </p>
-
-          {/* Features */}
-          {car.features && Object.keys(car.features).length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {Object.entries(car.features)
-                .filter(([_, v]) => v)
-                .map(([feature]) => (
-                  <span
-                    key={feature}
-                    className="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm"
-                  >
-                    {feature.replace(/([A-Z])/g, " $1").trim()}
-                  </span>
-                ))}
-            </div>
-          )}
         </div>
-
-        <div className="p-6 border-t border-gray-700 flex justify-between gap-4">
+        <div className="flex justify-between p-6 border-t border-gray-700">
           <Link
-            to="/"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
+            to={`/edit-car/${car._id}`}
+            className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition"
           >
-            Back to Cars
+            Edit
           </Link>
-
-          <Link to={`/bookCar/${car._id}`}>
-            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">
-              Book Now
-            </button>
-          </Link>
+          <button
+            onClick={handleDelete}
+            className="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
@@ -180,4 +117,3 @@ const CarDetails = () => {
 };
 
 export default CarDetails;
-

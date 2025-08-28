@@ -42,7 +42,7 @@ const Navbar = () => {
         Home
       </Link>
       <Link
-        to="/abailable/cars"
+        to="/available/cars"
         className={`hover:text-orange-300 font-medium ${isActive('/available-cars') ? 'text-orange-500 font-bold' : ''}`}
       >
         Available Cars

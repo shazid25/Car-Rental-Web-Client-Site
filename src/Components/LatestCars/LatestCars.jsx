@@ -20,7 +20,9 @@
 //   }, []);
 
 //   if (loading) {
-//     return <p className="text-center text-lg text-white mt-10">Loading cars...</p>;
+//     return (
+//       <p className="text-center text-lg text-white mt-10">Loading cars...</p>
+//     );
 //   }
 
 //   return (
@@ -63,7 +65,7 @@
 //               <p className="text-gray-400 text-sm">Location: {car.location}</p>
 //             </div>
 //             <div className="p-4 border-t border-gray-700">
-//               {/* Link to Car Details */}
+//               {/* Correct Link to Car Details */}
 //               <Link to={`/cars/${car._id}`}>
 //                 <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300">
 //                   View Details
@@ -78,8 +80,6 @@
 // };
 
 // export default LatestCars;
-
-
 
 
 
@@ -133,7 +133,7 @@ const LatestCars = () => {
             }}
           >
             <img
-              src={`${car.imageUrl}?auto=format&fit=crop&w=400&h=250&q=80`}
+              src={car.imageUrl || "https://via.placeholder.com/400x250"}
               alt={car.carModel}
               className="w-full h-48 object-cover"
             />
@@ -151,7 +151,7 @@ const LatestCars = () => {
               <p className="text-gray-400 text-sm">Location: {car.location}</p>
             </div>
             <div className="p-4 border-t border-gray-700">
-              {/* Correct Link to Car Details */}
+              {/* Link to Car Details */}
               <Link to={`/cars/${car._id}`}>
                 <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300">
                   View Details
