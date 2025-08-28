@@ -15,6 +15,7 @@ import AddCarsLayout from '../Components/Layout/AddCarsLayout';
 import MyCarsLayout from '../Components/Layout/MyCarsLayout';
 import MyBookingLayout from '../Components/Layout/MyBookingLayout';
 import MyBookings from '../Pages/MyBookings/MyBookings';
+import EditCar from '../Pages/EditCars/EditCar';
 // import BookCar from '../Pages/BookCar/BookCar';
 
 export const router = createBrowserRouter([
@@ -67,6 +68,21 @@ export const router = createBrowserRouter([
     ]
   },
   
+
+// {
+//   path: "/edit-car/:id",
+//   element: <PrivateRoute><EditCar /></PrivateRoute>,
+// },
+
+{
+  path: "/edit-car/:id",
+  element: <PrivateRoute><EditCar /></PrivateRoute>,
+  loader: async ({ params }) => {
+    const res = await fetch(`http://localhost:3000/cars/${params.id}`);
+    if (!res.ok) throw new Response("Car not found", { status: res.status });
+    return res.json();
+  },
+},
   // {
   //   path: '/bookCar/:id',
   //   element: <PrivateRoute><BookCar></BookCar></PrivateRoute>
