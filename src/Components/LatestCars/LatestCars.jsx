@@ -7,7 +7,7 @@
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
-//     fetch("http://localhost:3000/cars")
+//     fetch("https://car-rent-server-nine.vercel.app/cars")
 //       .then((res) => res.json())
 //       .then((data) => {
 //         setCars(data);
@@ -93,7 +93,7 @@ const LatestCars = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/cars")
+    fetch("https://car-rent-server-nine.vercel.app/cars")
       .then((res) => res.json())
       .then((data) => {
         setCars(data);

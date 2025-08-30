@@ -55,7 +55,7 @@ const AddCars = () => {
     const carToAdd = { ...formData, email: user.email, createdAt: new Date() };
 
     try {
-      const res = await fetch("http://localhost:3000/cars", {
+      const res = await fetch("https://car-rent-server-nine.vercel.app/cars", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(carToAdd),

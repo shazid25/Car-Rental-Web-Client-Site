@@ -4,7 +4,7 @@
 // import LatestCars from '../../Components/LatestCars/LatestCars';
 // const Home = () => {
 
-//   const carsPromise = fetch('http://localhost:3000/cars')
+//   const carsPromise = fetch('https://car-rent-server-nine.vercel.app/cars')
 //   .then(res => res.json())
 
 

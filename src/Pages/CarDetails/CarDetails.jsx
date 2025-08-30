@@ -9,7 +9,7 @@
 //     const confirm = window.confirm("Are you sure you want to delete this car?");
 //     if (!confirm) return;
 
-//     const res = await fetch(`http://localhost:3000/cars/${car._id}`, {
+//     const res = await fetch(`https://car-rent-server-nine.vercel.app/cars/${car._id}`, {
 //       method: "DELETE",
 //     });
 
@@ -64,7 +64,7 @@ const CarDetails = () => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/cars/${car._id}`, {
+      const res = await fetch(`https://car-rent-server-nine.vercel.app/cars/${car._id}`, {
         method: "DELETE",
       });
 

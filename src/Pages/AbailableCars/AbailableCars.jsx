@@ -8,7 +8,7 @@
 //   useEffect(() => {
 //     const fetchCars = async () => {
 //       try {
-//         const res = await fetch("http://localhost:3000/cars"); // Fetch all cars
+//         const res = await fetch("https://car-rent-server-nine.vercel.app/cars"); // Fetch all cars
 //         const data = await res.json();
 //         setCars(data);
 //       } catch (error) {
@@ -102,7 +102,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion"; // ✅ Import framer-motion
+import { motion } from "framer-motion";
 
 const AvailableCars = () => {
   const [cars, setCars] = useState([]);
@@ -111,7 +111,7 @@ const AvailableCars = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const res = await fetch("http://localhost:3000/cars"); // Fetch all cars
+        const res = await fetch("https://car-rent-server-nine.vercel.app/cars"); // Fetch all cars
         const data = await res.json();
         setCars(data);
       } catch (error) {
@@ -142,20 +142,26 @@ const AvailableCars = () => {
 
   return (
     <div className="min-h-screen rounded-2xl bg-gray-900 py-8 px-4">
-      <h1 className="text-4xl font-bold text-cyan-400 mb-6 text-center">
-        All Cars
+      <h1 className="text-4xl font-bold text-cyan-400 mb-6 text-center animate-pulse">
+        All Cars ({cars.length})
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cars.map((car, index) => (
           <motion.div
             key={car._id}
-            className="bg-gray-800 p-4 rounded-xl shadow-lg flex flex-col"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.15 }} // ✅ stagger animation
+            className="bg-gray-800 p-4 rounded-xl shadow-lg flex flex-col overflow-hidden"
+            initial={{ opacity: 0, y: 50, rotate: -2 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.8,
+              delay: index * 0.1,
+              type: "spring",
+              stiffness: 100,
+            }}
           >
             <img
-              src={car.imageUrl}
+              src={car.imageUrl || "https://via.placeholder.com/400x250"}
               alt={car.carModel}
               className="h-48 w-full object-cover rounded-lg mb-4"
             />
@@ -174,7 +180,7 @@ const AvailableCars = () => {
               <strong>Registration:</strong> {car.registrationNumber}
             </p>
             <div className="flex flex-wrap gap-2 mb-2">
-              {Object.entries(car.features)
+              {Object.entries(car.features || {})
                 .filter(([_, v]) => v)
                 .map(([feature]) => (
                   <span
@@ -186,12 +192,13 @@ const AvailableCars = () => {
                 ))}
             </div>
             <p className="text-gray-300">{car.description}</p>
-            <Link
-              to={`/cars/${car._id}`}
-              className="mt-4 inline-block bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-4 rounded-lg text-center"
-            >
-              View Details
-            </Link>
+            <div className="mt-4">
+              <Link to={`/cars/${car._id}`}>
+                <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-2 rounded-lg transition duration-300">
+                  View Details
+                </button>
+              </Link>
+            </div>
           </motion.div>
         ))}
       </div>

@@ -8,7 +8,7 @@ const MyCars = () => {
 
   useEffect(() => {
     if (!user?.email) return;
-    fetch(`http://localhost:3000/cars?email=${user.email}`)
+    fetch(`https://car-rent-server-nine.vercel.app/cars?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => setCars(data))
       .catch((err) => console.error(err));
@@ -19,7 +19,7 @@ const MyCars = () => {
     if (!window.confirm("Are you sure you want to delete this car?")) return;
 
     try {
-      await fetch(`http://localhost:3000/cars/${id}`, { method: "DELETE" });
+      await fetch(`https://car-rent-server-nine.vercel.app/cars/${id}`, { method: "DELETE" });
       setCars(cars.filter((car) => car._id !== id));
     } catch (err) {
       console.error(err);
